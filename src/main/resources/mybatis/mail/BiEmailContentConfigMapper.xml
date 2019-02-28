@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzbd.mail.dao.BiEmailContentConfigDao">
+
+	<select id="get" resultType="com.xzbd.mail.domain.BiEmailContentConfigDO">
+		select `id`,`email_job_id`,`content_id`,`type`,`del`,`create_time`,`create_man`,`memo_1`,`memo_2`,`memo_3` from bi_email_content_config where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.xzbd.mail.domain.BiEmailContentConfigDO">
+		select `id`,`email_job_id`,`content_id`,`type`,`del`,`create_time`,`create_man`,`memo_1`,`memo_2`,`memo_3` from bi_email_content_config
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="emailJobId != null and emailJobId != ''"> and email_job_id = #{emailJobId} </if>
+		  		  <if test="contentId != null and contentId != ''"> and content_id = #{contentId} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="del != null "> and del = #{del} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createMan != null and createMan != ''"> and create_man = #{createMan} </if>
+		  		  <if test="memo1 != null and memo1 != ''"> and memo_1 = #{memo1} </if>
+		  		  <if test="memo2 != null and memo2 != ''"> and memo_2 = #{memo2} </if>
+		  		  <if test="memo3 != null and memo3 != ''"> and memo_3 = #{memo3} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from bi_email_content_config
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="emailJobId != null and emailJobId != ''"> and email_job_id = #{emailJobId} </if>
+		  		  <if test="contentId != null and contentId != ''"> and content_id = #{contentId} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="del != null "> and del = #{del} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createMan != null and createMan != ''"> and create_man = #{createMan} </if>
+		  		  <if test="memo1 != null and memo1 != ''"> and memo_1 = #{memo1} </if>
+		  		  <if test="memo2 != null and memo2 != ''"> and memo_2 = #{memo2} </if>
+		  		  <if test="memo3 != null and memo3 != ''"> and memo_3 = #{memo3} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.xzbd.mail.domain.BiEmailContentConfigDO" useGeneratedKeys="true" keyProperty="id">
+		insert into bi_email_content_config
+		(
+			`email_job_id`, 
+			`content_id`, 
+			`type`, 
+			`del`, 
+			`create_time`, 
+			`create_man`, 
+			`memo_1`, 
+			`memo_2`, 
+			`memo_3`
+		)
+		values
+		(
+			#{emailJobId}, 
+			#{contentId}, 
+			#{type}, 
+			#{del}, 
+			#{createTime}, 
+			#{createMan}, 
+			#{memo1}, 
+			#{memo2}, 
+			#{memo3}
+		)
+	</insert>
+	<insert id="batchInsert" parameterType="com.xzbd.mail.domain.BiEmailContentConfigDO" useGeneratedKeys="true" keyProperty="id">
+		insert into bi_email_content_config
+		(
+		`email_job_id`,
+		`content_id`,
+		`type`,
+		`del`,
+		`create_time`,
+		`create_man`,
+		`memo_1`,
+		`memo_2`,
+		`memo_3`
+		)
+		values
+		<foreach item="item" collection="list"  separator="," >
+			(
+			#{item.emailJobId},
+			#{item.contentId},
+			#{item.type},
+			#{item.del},
+			#{item.createTime},
+			#{item.createMan},
+			#{item.memo1},
+			#{item.memo2},
+			#{item.memo3}
+			)
+		</foreach>
+
+
+	</insert>
+	 
+	<update id="update" parameterType="com.xzbd.mail.domain.BiEmailContentConfigDO">
+		update bi_email_content_config 
+		<set>
+			`email_job_id` = #{emailJobId},
+			`content_id` = #{contentId},
+			`type` = #{type},
+			`del` = #{del},
+			`create_time` = #{createTime},
+			`create_man` = #{createMan},
+			`memo_1` = #{memo1},
+			`memo_2` = #{memo2},
+			`memo_3` = #{memo3}
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from bi_email_content_config where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from bi_email_content_config where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<delete id="removeByJobId">
+		delete from bi_email_content_config where email_job_id = #{value}
+	</delete>
+
+</mapper>

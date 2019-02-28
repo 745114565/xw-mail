@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzbd.mail.dao.BiEmailSenderConfigDao">
+
+	<select id="getActiveSenderAddrs" resultType="com.xzbd.mail.domain.BiEmailSenderConfigDO">
+		select <include refid="baseSql"/>
+		from bi_email_sender_config
+		where del = 0
+	</select>
+	<sql id="baseSql">
+		`id`,`email_name`,`email_addr`,`email_pwd`,`email_maintainer_addrs`,
+		`del`,`create_time`,`create_man`,`last_option_time`,
+		`last_option_man`,`memo_1`,`memo_2`,`memo_3`,
+		`mail_transport_protocol`,
+		`mail_smtp_host`,
+		`mail_smtp_auth`,
+		`mail_smtp_timeout`,
+		`mail_smtp_connection_timeout`
+	</sql>
+	<select id="get" resultType="com.xzbd.mail.domain.BiEmailSenderConfigDO">
+		select <include refid="baseSql"/>
+		from bi_email_sender_config
+		where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.xzbd.mail.domain.BiEmailSenderConfigDO">
+		select `id`,`email_name`,`email_addr`,`email_pwd`,`email_maintainer_addrs`,`del`,`create_time`,`create_man`,`last_option_time`,`last_option_man`,`memo_1`,`memo_2`,`memo_3` from bi_email_sender_config
+        <where>  
+		  		  <if test="id != null "> and id = #{id} </if>
+		  		  <if test="emailName != null and emailName != ''"> and email_name = #{emailName} </if>
+		  		  <if test="emailAddr != null and emailAddr != ''"> and email_addr = #{emailAddr} </if>
+		  		  <if test="emailPwd != null and emailPwd != ''"> and email_pwd = #{emailPwd} </if>
+		  		  <if test="emailMaintainerAddrs != null and emailMaintainerAddrs != ''"> and email_maintainer_addrs = #{emailMaintainerAddrs} </if>
+		  		  <if test="del != null"> and del = #{del} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createMan != null and createMan != ''"> and create_man = #{createMan} </if>
+		  		  <if test="lastOptionTime != null and lastOptionTime != ''"> and last_option_time = #{lastOptionTime} </if>
+		  		  <if test="lastOptionMan != null and lastOptionMan != ''"> and last_option_man = #{lastOptionMan} </if>
+		  		  <if test="memo1 != null and memo1 != ''"> and memo_1 = #{memo1} </if>
+		  		  <if test="memo2 != null and memo2 != ''"> and memo_2 = #{memo2} </if>
+		  		  <if test="memo3 != null and memo3 != ''"> and memo_3 = #{memo3} </if>
+
+		  		  <if test="mailTransportProtocol != null and mailTransportProtocol != ''"> and mail_transport_protocol = #{mailTransportProtocol} </if>
+		  		  <if test="mailSmtpHost != null and mailSmtpHost != ''"> and mail_smtp_host = #{mailSmtpHost} </if>
+		  		  <if test="mailSmtpAuth != null and mailSmtpAuth != ''"> and mail_smtp_auth = #{mailSmtpAuth} </if>
+		  		  <if test="mailSmtpConnectionTimeout != null and mailSmtpConnectionTimeout != ''"> and mail_smtp_connection_timeout = #{mailSmtpConnectionTimeout} </if>
+		  		  <if test="mailSmtpTimeout != null and mailSmtpTimeout != ''"> and mail_smtp_timeout = #{mailSmtpTimeout} </if>
+
+				  <if test="searchName != null and searchName != ''">
+					  and
+					  (
+					  email_name like '%${searchName}%'
+					  or email_addr like '%${searchName}%'
+					  or email_maintainer_addrs like '%${searchName}%'
+					  )
+				  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from bi_email_sender_config
+		 <where>  
+			  <if test="id != null"> and id = #{id} </if>
+			  <if test="emailName != null and emailName != ''"> and email_name = #{emailName} </if>
+			  <if test="emailAddr != null and emailAddr != ''"> and email_addr = #{emailAddr} </if>
+			  <if test="emailPwd != null and emailPwd != ''"> and email_pwd = #{emailPwd} </if>
+			  <if test="emailMaintainerAddrs != null and emailMaintainerAddrs != ''"> and email_maintainer_addrs = #{emailMaintainerAddrs} </if>
+			  <if test="del != null"> and del = #{del} </if>
+			  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			  <if test="createMan != null and createMan != ''"> and create_man = #{createMan} </if>
+			  <if test="lastOptionTime != null and lastOptionTime != ''"> and last_option_time = #{lastOptionTime} </if>
+			  <if test="lastOptionMan != null and lastOptionMan != ''"> and last_option_man = #{lastOptionMan} </if>
+			  <if test="memo1 != null and memo1 != ''"> and memo_1 = #{memo1} </if>
+			  <if test="memo2 != null and memo2 != ''"> and memo_2 = #{memo2} </if>
+			  <if test="memo3 != null and memo3 != ''"> and memo_3 = #{memo3} </if>
+
+			 <if test="mailTransportProtocol != null and mailTransportProtocol != ''"> and mail_transport_protocol = #{mailTransportProtocol} </if>
+			 <if test="mailSmtpHost != null and mailSmtpHost != ''"> and mail_smtp_host = #{mailSmtpHost} </if>
+			 <if test="mailSmtpAuth != null and mailSmtpAuth != ''"> and mail_smtp_auth = #{mailSmtpAuth} </if>
+			 <if test="mailSmtpConnectionTimeout != null and mailSmtpConnectionTimeout != ''"> and mail_smtp_connection_timeout = #{mailSmtpConnectionTimeout} </if>
+			 <if test="mailSmtpTimeout != null and mailSmtpTimeout != ''"> and mail_smtp_timeout = #{mailSmtpTimeout} </if>
+
+			 <if test="searchName != null and searchName != ''">
+				 and
+				 (
+				 email_name like '%${searchName}%'
+				 or email_addr like '%${searchName}%'
+				 or email_maintainer_addrs like '%${searchName}%'
+				 )
+			 </if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.xzbd.mail.domain.BiEmailSenderConfigDO" useGeneratedKeys="true" keyProperty="id">
+		insert into bi_email_sender_config
+		(
+			`email_name`, 
+			`email_addr`, 
+			`email_pwd`, 
+			`email_maintainer_addrs`, 
+			`del`, 
+			`create_time`, 
+			`create_man`, 
+			`last_option_time`, 
+			`last_option_man`, 
+			`memo_1`, 
+			`memo_2`, 
+			`memo_3`,
+			`mail_transport_protocol`,
+			`mail_smtp_host`,
+			`mail_smtp_auth`,
+			`mail_smtp_timeout`,
+			`mail_smtp_connection_timeout`
+		)
+		values
+		(
+			#{emailName}, 
+			#{emailAddr}, 
+			#{emailPwd}, 
+			#{emailMaintainerAddrs}, 
+			#{del}, 
+			#{createTime}, 
+			#{createMan}, 
+			#{lastOptionTime}, 
+			#{lastOptionMan}, 
+			#{memo1}, 
+			#{memo2}, 
+			#{memo3},
+			#{mailTransportProtocol},
+			#{mailSmtpHost},
+			#{mailSmtpAuth},
+			#{mailSmtpConnectionTimeout},
+			#{mailSmtpTimeout}
+
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.xzbd.mail.domain.BiEmailSenderConfigDO">
+		update bi_email_sender_config 
+		<set>
+			<if test="emailName != null">`email_name` = #{emailName}, </if>
+			<if test="emailAddr != null">`email_addr` = #{emailAddr}, </if>
+			<if test="emailPwd != null">`email_pwd` = #{emailPwd}, </if>
+			<if test="emailMaintainerAddrs != null">`email_maintainer_addrs` = #{emailMaintainerAddrs}, </if>
+			<if test="del != null">`del` = #{del}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createMan != null">`create_man` = #{createMan}, </if>
+			<if test="lastOptionTime != null">`last_option_time` = #{lastOptionTime}, </if>
+			<if test="lastOptionMan != null">`last_option_man` = #{lastOptionMan}, </if>
+			<if test="memo1 != null">`memo_1` = #{memo1}, </if>
+			<if test="memo2 != null">`memo_2` = #{memo2}, </if>
+			<if test="memo3 != null">`memo_3` = #{memo3},</if>
+
+			<if test="mailTransportProtocol != null ">  mail_transport_protocol = #{mailTransportProtocol}, </if>
+			<if test="mailSmtpHost != null ">  mail_smtp_host = #{mailSmtpHost}, </if>
+			<if test="mailSmtpAuth != null ">  mail_smtp_auth = #{mailSmtpAuth}, </if>
+			<if test="mailSmtpConnectionTimeout != null ">  mail_smtp_connection_timeout = #{mailSmtpConnectionTimeout}, </if>
+			<if test="mailSmtpTimeout != null ">  mail_smtp_timeout = #{mailSmtpTimeout} </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from bi_email_sender_config where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from bi_email_sender_config where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

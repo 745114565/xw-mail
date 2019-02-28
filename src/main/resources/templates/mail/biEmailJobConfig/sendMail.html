@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link rel="stylesheet" type="text/css" href="/css/plugins/multiselect/bootstrap-multiselect.css">
+<link rel="stylesheet" type="text/css" href="/css/plugins/bootstrap-datepicker/bootstrap-datetimepicker.min.css">
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="signupForm">
+                        <input id="id" th:value="${old.id}" name="id" class="form-control hidden" type="text">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">任务名称：</label>
+                            <div class="col-sm-8">
+                                <input id="jobName" th:value="${old.jobName}" name="jobName" class="form-control"
+                                       type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">任务描述：</label>
+                            <div class="col-sm-8">
+                                <input id="jobDesc" th:value="${old.jobDesc}" name="jobDesc" class="form-control"
+                                       type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">发送周期：</label>
+                            <div class="col-sm-8">
+                                <input id="cronExpression" th:value="${old.cronExpression}" name="cronExpression"
+                                       class="form-control" type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">邮件主题：</label>
+                            <div class="col-sm-8">
+                                <input id="subject" th:value="${old.subject}" name="subject" class="form-control"
+                                       type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">发件人邮箱：</label>
+                            <div class="col-sm-8">
+                                <!-- <input id="emailSenderId"  th:value="${old.emailSenderId}" name="emailSenderId" class="form-control" type="text"> -->
+                                <select id="emailSenderId" name="emailSenderId" class="form-control" required disabled>
+                                    <option value="" selected>请选择</option>
+                                    <option th:selected="${old.emailSenderId eq sender.id}"
+                                            th:each="sender:${seders}" th:value="${sender.id}"
+                                            th:text="${sender.emailName}"></option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">收件人邮箱地址：</label>
+                            <div class="col-sm-8">
+                                <input id="sendTo" th:value="${old.sendTo}" name="sendTo" class="form-control"
+                                       type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">抄送人邮箱地址：</label>
+                            <div class="col-sm-8">
+                                <input id="cc" th:value="${old.cc}" name="cc" class="form-control" type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">密送人邮箱地址：</label>
+                            <div class="col-sm-8">
+                                <input id="bcc" th:value="${old.bcc}" name="bcc" class="form-control" type="text"
+                                       disabled>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label">是否单表大数据邮件：</label>-->
+                            <!--<div class="col-sm-8">-->
+                                <!--<label class="radio-inline">-->
+                                    <!--<input type="radio" th:checked="${old.memo1 eq '1' }" name="memo1" value="1"-->
+                                           <!--disabled> 否-->
+                                <!--</label>-->
+                                <!--<label class="radio-inline">-->
+                                    <!--<input type="radio" th:checked="${old.memo1 eq '2' }" name="memo1" value="2"-->
+                                           <!--disabled> 是-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">发送时间：</label>
+                            <div class="col-sm-8">
+                                <input id="send_time" type="text" readonly value="" class="form-control form_date"
+                                       style="width:100px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button onclick="sendByManual()" type="button" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include::footer"></div>
+<div th:include="include::statUtileJS"></div>
+<script src="/js/plugins/bootstrap-datepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+<script src="/js/plugins/bootstrap-datepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/js/plugins/multiselect/bootstrap-multiselect.js"></script>
+<script type="text/javascript" src="/js/appjs/mail/biEmailJobConfig/sendMail.js"></script>
+</body>
+
+</html>

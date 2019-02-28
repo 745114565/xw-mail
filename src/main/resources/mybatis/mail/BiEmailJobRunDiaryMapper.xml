@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzbd.mail.dao.BiEmailJobRunDiaryDao">
+
+	<select id="get" resultType="com.xzbd.mail.domain.BiEmailJobRunDiaryDO">
+		select `id`,`job_id`,`job_name`,`start_time`,`end_time`,`run_state`,`failed_type`,`retry_times`,`retried`,`failed_msg`,`origin_to`,`origin_bc`,`origin_cc`,`str1`,`str2`,`str3`,`str4`,`str5` from bi_email_job_run_diary where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.xzbd.mail.domain.BiEmailJobRunDiaryDO">
+		select `id`,`job_id`,`job_name`,`start_time`,`end_time`,`run_state`,`failed_type`,`retry_times`,`retried`,`failed_msg`,`origin_to`,`origin_bc`,`origin_cc`,`str1`,`str2`,`str3`,`str4`,`str5` from bi_email_job_run_diary
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="jobId != null and jobId != ''"> and job_id = #{jobId} </if>
+		  		  <if test="jobName != null and jobName != ''"> and job_name = #{jobName} </if>
+		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
+		  		  <if test="runState != null and runState != ''" > and run_state = #{runState} </if>
+		  		  <if test="failedType != null and failedType != ''"> and failed_type = #{failedType} </if>
+		  		  <if test="retryTimes != null and retryTimes != ''"> and retry_times = #{retryTimes} </if>
+		  		  <if test="retried != null and retried != ''"> and retried = #{retried} </if>
+		  		  <if test="failedMsg != null and failedMsg != ''"> and failed_msg = #{failedMsg} </if>
+		  		  <if test="originTo != null and originTo != ''"> and origin_to = #{originTo} </if>
+		  		  <if test="originBc != null and originBc != ''"> and origin_bc = #{originBc} </if>
+		  		  <if test="originCc != null and originCc != ''"> and origin_cc = #{originCc} </if>
+		  		  <if test="str1 != null and str1 != ''"> and str1 = #{str1} </if>
+		  		  <if test="str2 != null and str2 != ''"> and str2 = #{str2} </if>
+		  		  <if test="str3 != null and str3 != ''"> and str3 = #{str3} </if>
+		  		  <if test="str4 != null and str4 != ''"> and str4 = #{str4} </if>
+		  		  <if test="str5 != null and str5 != ''"> and str5 = #{str5} </if>
+
+		  		  <if test="startTimeStr != null and startTimeStr != ''"> and start_time >= #{startTimeStr} </if>
+		  		  <if test="endTimeStr != null and endTimeStr != ''"> and   #{endTimeStr} > end_time </if>
+		  		  <if test="searchValue != null and searchValue != ''"> and (job_id like '%${searchValue}%' or job_name like '%${searchValue}%') </if>
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from bi_email_job_run_diary
+		 <where>  
+			  <if test="id != null and id != ''"> and id = #{id} </if>
+			  <if test="jobId != null and jobId != ''"> and job_id = #{jobId} </if>
+			  <if test="jobName != null and jobName != ''"> and job_name = #{jobName} </if>
+			  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
+			  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
+			  <if test="runState != null and runState != ''"> and run_state = #{runState} </if>
+			  <if test="failedType != null and failedType != ''"> and failed_type = #{failedType} </if>
+			  <if test="retryTimes != null and retryTimes != ''"> and retry_times = #{retryTimes} </if>
+			  <if test="retried != null and retried != ''"> and retried = #{retried} </if>
+			  <if test="failedMsg != null and failedMsg != ''"> and failed_msg = #{failedMsg} </if>
+			  <if test="originTo != null and originTo != ''"> and origin_to = #{originTo} </if>
+			  <if test="originBc != null and originBc != ''"> and origin_bc = #{originBc} </if>
+			  <if test="originCc != null and originCc != ''"> and origin_cc = #{originCc} </if>
+			  <if test="str1 != null and str1 != ''"> and str1 = #{str1} </if>
+			  <if test="str2 != null and str2 != ''"> and str2 = #{str2} </if>
+			  <if test="str3 != null and str3 != ''"> and str3 = #{str3} </if>
+			  <if test="str4 != null and str4 != ''"> and str4 = #{str4} </if>
+			  <if test="str5 != null and str5 != ''"> and str5 = #{str5} </if>
+
+			 <if test="startTimeStr != null and startTimeStr != ''"> and start_time >= #{startTimeStr} </if>
+			 <if test="endTimeStr != null and endTimeStr != ''"> and   #{endTimeStr} > end_time </if>
+			 <if test="searchValue != null and searchValue != ''"> and (job_id like '%${searchValue}%' or job_name like '%${searchValue}%') </if>
+		 </where>
+	</select>
+	 
+	<insert id="save" parameterType="com.xzbd.mail.domain.BiEmailJobRunDiaryDO" useGeneratedKeys="true" keyProperty="id">
+		insert into bi_email_job_run_diary
+		(
+			`job_id`, 
+			`job_name`, 
+			`start_time`, 
+			`end_time`, 
+			`run_state`, 
+			`failed_type`, 
+			`retry_times`, 
+			`retried`, 
+			`failed_msg`, 
+			`origin_to`, 
+			`origin_bc`, 
+			`origin_cc`, 
+			`str1`, 
+			`str2`, 
+			`str3`, 
+			`str4`, 
+			`str5`
+		)
+		values
+		(
+			#{jobId}, 
+			#{jobName}, 
+			#{startTime}, 
+			#{endTime}, 
+			#{runState}, 
+			#{failedType}, 
+			#{retryTimes}, 
+			#{retried}, 
+			#{failedMsg}, 
+			#{originTo}, 
+			#{originBc}, 
+			#{originCc}, 
+			#{str1}, 
+			#{str2}, 
+			#{str3}, 
+			#{str4}, 
+			#{str5}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.xzbd.mail.domain.BiEmailJobRunDiaryDO">
+		update bi_email_job_run_diary 
+		<set>
+			<if test="jobId != null">`job_id` = #{jobId}, </if>
+			<if test="jobName != null">`job_name` = #{jobName}, </if>
+			<if test="startTime != null">`start_time` = #{startTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="runState != null">`run_state` = #{runState}, </if>
+			<if test="failedType != null">`failed_type` = #{failedType}, </if>
+			<if test="retryTimes != null">`retry_times` = #{retryTimes}, </if>
+			<if test="retried != null">`retried` = #{retried}, </if>
+			<if test="failedMsg != null">`failed_msg` = #{failedMsg}, </if>
+			<if test="originTo != null">`origin_to` = #{originTo}, </if>
+			<if test="originBc != null">`origin_bc` = #{originBc}, </if>
+			<if test="originCc != null">`origin_cc` = #{originCc}, </if>
+			<if test="str1 != null">`str1` = #{str1}, </if>
+			<if test="str2 != null">`str2` = #{str2}, </if>
+			<if test="str3 != null">`str3` = #{str3}, </if>
+			<if test="str4 != null">`str4` = #{str4}, </if>
+			<if test="str5 != null">`str5` = #{str5}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from bi_email_job_run_diary where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from bi_email_job_run_diary where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

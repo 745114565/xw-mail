@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="col-sm-8 col-md-8 col-md-offset-2">
+					<!-- <div class="jumbotron"> -->
+					<div class="">
+				        <h2>欢迎登录 wx-mail 邮件管理系统 ！</h2>
+				        <p>您还没有设置首页，请点击下面【设置首页】按钮设置</p>
+				        <p>
+				        <div class="col-sm-6 col-md-6 col-md-offset-3">
+				        	<a class="btn btn-primary btn-lg" role="button" onclick="personal()"> 设置首页</a>
+				        </div>
+				      </p>
+				   </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript">
+
+		function personal() {
+                layer.open({
+                    type: 2,
+                    title: '个人设置',
+                    maxmin: true,
+                    shadeClose: false,
+                    area: ['800px', '600px'],
+                    content: '/sys/user/personal'
+                });
+            }
+	</script>
+</body>
+
+</html>

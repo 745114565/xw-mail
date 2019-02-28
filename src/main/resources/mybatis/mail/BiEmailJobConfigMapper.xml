@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzbd.mail.dao.BiEmailJobConfigDao">
+
+	<select id="get" resultType="com.xzbd.mail.domain.BiEmailJobConfigDO">
+		select `id`,`send_to`,`cc`,`bcc`,`subject`,`job_desc`,`email_content_id`,`cron_expression`,`email_sender_id`,`del`,`job_name`,`job_group`,`job_bean_class`,`method_name`,`job_status`,`isConcurrent`,`create_time`,`create_man`,`memo_1`,`memo_2`,`memo_3`,`last_option_man`,`last_option_time` from bi_email_job_config where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.xzbd.mail.domain.BiEmailJobConfigDO">
+		select `id`,`send_to`,`cc`,`bcc`,`subject`,`job_desc`,`email_content_id`,`cron_expression`,`email_sender_id`,`del`,`job_name`,`job_group`,`job_bean_class`,`method_name`,`job_status`,`isConcurrent`,`create_time`,`create_man`,`memo_1`,`memo_2`,`memo_3`,`last_option_man`,`last_option_time` from bi_email_job_config
+        <where>  
+			  <if test="id != null and id != ''"> and id = #{id} </if>
+			  <if test="sendTo != null and sendTo != ''"> and send_to = #{sendTo} </if>
+			  <if test="cc != null and cc != ''"> and cc = #{cc} </if>
+			  <if test="bcc != null and bcc != ''"> and bcc = #{bcc} </if>
+			  <if test="subject != null and subject != ''"> and subject = #{subject} </if>
+			  <if test="jobDesc != null and jobDesc != ''"> and job_desc = #{jobDesc} </if>
+			  <if test="emailContentId != null and emailContentId != ''"> and email_content_id = #{emailContentId} </if>
+			  <if test="cronExpression != null and cronExpression != ''"> and cron_expression = #{cronExpression} </if>
+			  <if test="emailSenderId != null and emailSenderId != ''"> and email_sender_id = #{emailSenderId} </if>
+			  <if test="del != null "> and del = #{del} </if>
+			  <if test="jobName != null and jobName != ''"> and job_name = #{jobName} </if>
+			  <if test="jobGroup != null and jobGroup != ''"> and job_group = #{jobGroup} </if>
+			  <if test="jobBeanClass != null and jobBeanClass != ''"> and job_bean_class = #{jobBeanClass} </if>
+			  <if test="methodName != null and methodName != ''"> and method_name = #{methodName} </if>
+			  <if test="jobStatus != null and jobStatus != ''"> and job_status = #{jobStatus} </if>
+			  <if test="isconcurrent != null and isconcurrent != ''"> and isConcurrent = #{isconcurrent} </if>
+			  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			  <if test="createMan != null and createMan != ''"> and create_man = #{createMan} </if>
+			  <if test="memo1 != null and memo1 != ''"> and memo_1 = #{memo1} </if>
+			  <if test="memo2 != null and memo2 != ''"> and memo_2 = #{memo2} </if>
+			  <if test="memo3 != null and memo3 != ''"> and memo_3 = #{memo3} </if>
+			  <if test="lastOptionMan != null and lastOptionMan != ''"> and last_option_man = #{lastOptionMan} </if>
+			  <if test="lastOptionTime != null and lastOptionTime != ''"> and last_option_time = #{lastOptionTime} </if>
+			  <if test="searchName != null and searchName != ''">
+					and
+					(
+					send_to like '%${searchName}%'
+					or cc like '%${searchName}%'
+					or bcc like '%${searchName}%'
+					or subject like '%${searchName}%'
+					or job_desc like '%${searchName}%'
+					or cron_expression like '%${searchName}%'
+					)
+			  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from bi_email_job_config
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="sendTo != null and sendTo != ''"> and send_to = #{sendTo} </if>
+		  		  <if test="cc != null and cc != ''"> and cc = #{cc} </if>
+		  		  <if test="bcc != null and bcc != ''"> and bcc = #{bcc} </if>
+		  		  <if test="subject != null and subject != ''"> and subject = #{subject} </if>
+		  		  <if test="jobDesc != null and jobDesc != ''"> and job_desc = #{jobDesc} </if>
+		  		  <if test="emailContentId != null and emailContentId != ''"> and email_content_id = #{emailContentId} </if>
+		  		  <if test="cronExpression != null and cronExpression != ''"> and cron_expression = #{cronExpression} </if>
+		  		  <if test="emailSenderId != null and emailSenderId != ''"> and email_sender_id = #{emailSenderId} </if>
+		  		  <if test="del != null "> and del = #{del} </if>
+		  		  <if test="jobName != null and jobName != ''"> and job_name = #{jobName} </if>
+		  		  <if test="jobGroup != null and jobGroup != ''"> and job_group = #{jobGroup} </if>
+		  		  <if test="jobBeanClass != null and jobBeanClass != ''"> and job_bean_class = #{jobBeanClass} </if>
+		  		  <if test="methodName != null and methodName != ''"> and method_name = #{methodName} </if>
+		  		  <if test="jobStatus != null and jobStatus != ''"> and job_status = #{jobStatus} </if>
+		  		  <if test="isconcurrent != null and isconcurrent != ''"> and isConcurrent = #{isconcurrent} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createMan != null and createMan != ''"> and create_man = #{createMan} </if>
+		  		  <if test="memo1 != null and memo1 != ''"> and memo_1 = #{memo1} </if>
+		  		  <if test="memo2 != null and memo2 != ''"> and memo_2 = #{memo2} </if>
+		  		  <if test="memo3 != null and memo3 != ''"> and memo_3 = #{memo3} </if>
+		  		  <if test="lastOptionMan != null and lastOptionMan != ''"> and last_option_man = #{lastOptionMan} </if>
+		  		  <if test="lastOptionTime != null and lastOptionTime != ''"> and last_option_time = #{lastOptionTime} </if>
+
+			 <if test="searchName != null and searchName != ''">
+				 and
+				 (
+				 send_to like '%${searchName}%'
+				 or cc like '%${searchName}%'
+				 or bcc like '%${searchName}%'
+				 or subject like '%${searchName}%'
+				 or job_desc like '%${searchName}%'
+				 or cron_expression like '%${searchName}%'
+				 )
+			 </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.xzbd.mail.domain.BiEmailJobConfigDO" useGeneratedKeys="true" keyProperty="id">
+		insert into bi_email_job_config
+		(
+			`send_to`, 
+			`cc`, 
+			`bcc`, 
+			`subject`, 
+			`job_desc`, 
+			`email_content_id`, 
+			`cron_expression`, 
+			`email_sender_id`, 
+			`del`, 
+			`job_name`, 
+			`job_group`, 
+			`job_bean_class`, 
+			`method_name`, 
+			`job_status`, 
+			`isConcurrent`, 
+			`create_time`, 
+			`create_man`, 
+			`memo_1`, 
+			`memo_2`, 
+			`memo_3`, 
+			`last_option_man`, 
+			`last_option_time`
+		)
+		values
+		(
+			#{sendTo}, 
+			#{cc}, 
+			#{bcc}, 
+			#{subject}, 
+			#{jobDesc}, 
+			#{emailContentId}, 
+			#{cronExpression}, 
+			#{emailSenderId}, 
+			#{del}, 
+			#{jobName}, 
+			#{jobGroup}, 
+			#{jobBeanClass}, 
+			#{methodName}, 
+			#{jobStatus}, 
+			#{isconcurrent}, 
+			#{createTime}, 
+			#{createMan}, 
+			#{memo1}, 
+			#{memo2}, 
+			#{memo3}, 
+			#{lastOptionMan}, 
+			#{lastOptionTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.xzbd.mail.domain.BiEmailJobConfigDO">
+		update bi_email_job_config 
+		<set>
+			`send_to` = #{sendTo},
+			`cc` = #{cc},
+			`bcc` = #{bcc},
+			`subject` = #{subject},
+			`job_desc` = #{jobDesc},
+			`email_content_id` = #{emailContentId},
+			`cron_expression` = #{cronExpression},
+			`email_sender_id` = #{emailSenderId},
+			`del` = #{del},
+			`job_name` = #{jobName},
+			`job_group` = #{jobGroup},
+			`job_bean_class` = #{jobBeanClass},
+			`method_name` = #{methodName},
+			`job_status` = #{jobStatus},
+			`isConcurrent` = #{isconcurrent},
+			`create_time` = #{createTime},
+			`create_man` = #{createMan},
+			`memo_1` = #{memo1},
+			`memo_2` = #{memo2},
+			`memo_3` = #{memo3},
+			`last_option_man` = #{lastOptionMan},
+			`last_option_time` = #{lastOptionTime}
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from bi_email_job_config where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from bi_email_job_config where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link rel="stylesheet" type="text/css" href="/css/plugins/bootstrap-datepicker/bootstrap-datetimepicker.min.css">
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <div class="fixed-table-toolbar">
+                    <form class="form-inline col-sm-12">
+                        <div class=" col-sm-4">
+                            <label>执行时间：</label>
+                            <input type="text" class="form-control form_date" style="width:100px;" id="startTime">-
+                            <input type="text" class="form-control form_date" style="width:100px;" id="endTime">
+                        </div>
+                        <div class=" col-sm-3">
+                            <label>运行状态：</label>
+                            <select id="runState" class="form-control">
+                                <option value="">请选择</option>
+                                <option value="0">正在执行</option>
+                                <option value="1">失败</option>
+                                <option value="2">成功</option>
+                            </select>
+                        </div>
+
+                        <div class="  col-md-2 nopadding">
+                            <input id="searchName" type="text" class="form-control"
+                                   placeholder="任务名称/ID">
+                        </div>
+
+                        <div class="  col-sm-1">
+                            <button type="button" class="btn btn-success "  onclick="reLoad()">查询</button>
+                        </div>
+                        <div class=" col-sm-1 ">
+                            <button type="button" class=" btn btn-primary"
+                                    shiro:hasPermission="mail:biEmailJobRunDiary:send" onclick="batchSendEmail()">发送
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+                <table id="exampleTable" data-mobile-responsive="true" style="margin-top:20px;">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+<!--<div>-->
+<!--<script type="text/javascript">-->
+<!--var s_edit_h = 'hidden';-->
+<!--var s_remove_h = 'hidden';-->
+<!--var s_resetPwd_h = 'hidden';-->
+<!--</script>-->
+<!--</div>-->
+<!--<div shiro:hasPermission="mail:biEmailJobRunDiary:edit">-->
+<!--<script type="text/javascript">-->
+<!--s_edit_h = '';-->
+<!--</script>-->
+<!--</div>-->
+<!--<div shiro:hasPermission="mail:biEmailJobRunDiary:remove">-->
+<!--<script type="text/javascript">-->
+<!--var s_remove_h = '';-->
+<!--</script>-->
+<!--</div>-->
+<!--<div shiro:hasPermission="mail:biEmailJobRunDiary:resetPwd">-->
+<!--<script type="text/javascript">-->
+<!--var s_resetPwd_h = '';-->
+<!--</script>-->
+<!--</div>-->
+</div>
+<div th:include="include :: footer"></div>
+<div th:include="include ::statUtileJS"></div>
+<script type="text/javascript" src="/js/plugins/clipboard/clipboard.min.js"></script>
+<script src="/js/plugins/bootstrap-datepicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+<script src="/js/plugins/bootstrap-datepicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/js/appjs/mail/biEmailJobRunDiary/biEmailJobRunDiary.js"></script>
+</body>
+</html>

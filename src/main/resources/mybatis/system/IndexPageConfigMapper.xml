@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzbd.system.dao.IndexPageConfigDao">
+
+	<select id="get" resultType="com.xzbd.system.domain.IndexPageConfigDO">
+		select `id`,`index_page_path`,`memo`,`memo1`,`memo2`,`memo3`,`memo4` from sys_index_page_config where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.xzbd.system.domain.IndexPageConfigDO">
+		select `id`,`index_page_path`,`memo`,`memo1`,`memo2`,`memo3`,`memo4` from sys_index_page_config
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="indexPagePath != null and indexPagePath != ''"> and index_page_path = #{indexPagePath} </if>
+		  		  <if test="memo != null and memo != ''"> and memo = #{memo} </if>
+		  		  <if test="memo1 != null and memo1 != ''"> and memo1 = #{memo1} </if>
+		  		  <if test="memo2 != null and memo2 != ''"> and memo2 = #{memo2} </if>
+		  		  <if test="memo3 != null and memo3 != ''"> and memo3 = #{memo3} </if>
+		  		  <if test="memo4 != null and memo4 != ''"> and memo4 = #{memo4} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from sys_index_page_config
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="indexPagePath != null and indexPagePath != ''"> and index_page_path = #{indexPagePath} </if>
+		  		  <if test="memo != null and memo != ''"> and memo = #{memo} </if>
+		  		  <if test="memo1 != null and memo1 != ''"> and memo1 = #{memo1} </if>
+		  		  <if test="memo2 != null and memo2 != ''"> and memo2 = #{memo2} </if>
+		  		  <if test="memo3 != null and memo3 != ''"> and memo3 = #{memo3} </if>
+		  		  <if test="memo4 != null and memo4 != ''"> and memo4 = #{memo4} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.xzbd.system.domain.IndexPageConfigDO">
+		insert into sys_index_page_config
+		(
+			`id`, 
+			`index_page_path`, 
+			`memo`, 
+			`memo1`, 
+			`memo2`, 
+			`memo3`, 
+			`memo4`
+		)
+		values
+		(
+			#{id}, 
+			#{indexPagePath}, 
+			#{memo}, 
+			#{memo1}, 
+			#{memo2}, 
+			#{memo3}, 
+			#{memo4}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.xzbd.system.domain.IndexPageConfigDO">
+		update sys_index_page_config 
+		<set>
+			<if test="indexPagePath != null">`index_page_path` = #{indexPagePath}, </if>
+			<if test="memo != null">`memo` = #{memo}, </if>
+			<if test="memo1 != null">`memo1` = #{memo1}, </if>
+			<if test="memo2 != null">`memo2` = #{memo2}, </if>
+			<if test="memo3 != null">`memo3` = #{memo3}, </if>
+			<if test="memo4 != null">`memo4` = #{memo4}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_index_page_config where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from sys_index_page_config where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

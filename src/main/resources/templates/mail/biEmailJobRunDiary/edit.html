@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="id" name="id" th:value="${biEmailJobRunDiary.id}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">任务ID：</label>
+								<div class="col-sm-8">
+									<input id="jobId" name="jobId" th:value="${biEmailJobRunDiary.jobId}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">任务名称：</label>
+								<div class="col-sm-8">
+									<input id="jobName" name="jobName" th:value="${biEmailJobRunDiary.jobName}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">任务开始时间：</label>
+								<div class="col-sm-8">
+									<input id="startTime" name="startTime" th:value="${biEmailJobRunDiary.startTime}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">任务结束时间：</label>
+								<div class="col-sm-8">
+									<input id="endTime" name="endTime" th:value="${biEmailJobRunDiary.endTime}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">运行状态 0 正在执行，1 失败， 2 成功 ：</label>
+								<div class="col-sm-8">
+									<input id="runState" name="runState" th:value="${biEmailJobRunDiary.runState}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">0 程序异常 ，1 数据异常 2 程序异常：</label>
+								<div class="col-sm-8">
+									<input id="failedType" name="failedType" th:value="${biEmailJobRunDiary.failedType}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">重试次数：</label>
+								<div class="col-sm-8">
+									<input id="retryTimes" name="retryTimes" th:value="${biEmailJobRunDiary.retryTimes}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">0 未重试， 1已经重试：</label>
+								<div class="col-sm-8">
+									<input id="retried" name="retried" th:value="${biEmailJobRunDiary.retried}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">失败信息。程序异常：</label>
+								<div class="col-sm-8">
+									<input id="failedMsg" name="failedMsg" th:value="${biEmailJobRunDiary.failedMsg}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">原始收件人：</label>
+								<div class="col-sm-8">
+									<input id="originTo" name="originTo" th:value="${biEmailJobRunDiary.originTo}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">原始抄送人：</label>
+								<div class="col-sm-8">
+									<input id="originBc" name="originBc" th:value="${biEmailJobRunDiary.originBc}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">原始密送人：</label>
+								<div class="col-sm-8">
+									<input id="originCc" name="originCc" th:value="${biEmailJobRunDiary.originCc}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">备用字段1：</label>
+								<div class="col-sm-8">
+									<input id="str1" name="str1" th:value="${biEmailJobRunDiary.str1}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">备用字段2：</label>
+								<div class="col-sm-8">
+									<input id="str2" name="str2" th:value="${biEmailJobRunDiary.str2}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">备用字段3：</label>
+								<div class="col-sm-8">
+									<input id="str3" name="str3" th:value="${biEmailJobRunDiary.str3}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">备用字段4：</label>
+								<div class="col-sm-8">
+									<input id="str4" name="str4" th:value="${biEmailJobRunDiary.str4}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">备用字段5：</label>
+								<div class="col-sm-8">
+									<input id="str5" name="str5" th:value="${biEmailJobRunDiary.str5}" class="form-control" type="text">
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/mail/biEmailJobRunDiary/edit.js">
+	</script>
+</body>
+</html>
